@@ -9,6 +9,15 @@ import Foundation
 
 enum Experiments {
     
+    static func runAll() {
+        Experiments.case1.run()
+        Experiments.case2.run()
+        Experiments.case3.run()
+        Experiments.case4.run()
+        Experiments.case5.run()
+        Experiments.case6.run()
+    }
+    
     private static func run<T>(
         dataGenerator: (_ length: Int) -> T,
         badCaseBlock: (T) -> (),
