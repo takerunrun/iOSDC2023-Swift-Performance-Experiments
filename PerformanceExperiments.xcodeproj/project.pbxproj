@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		847842BB2A9E88F8005A26AE /* Benchmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847842BA2A9E88F8005A26AE /* Benchmark.swift */; };
+		847842BD2A9E8922005A26AE /* DataGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847842BC2A9E8922005A26AE /* DataGenerator.swift */; };
 		849746ED2A9E828100A2AB92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849746EC2A9E828100A2AB92 /* AppDelegate.swift */; };
 		849746EF2A9E828100A2AB92 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849746EE2A9E828100A2AB92 /* SceneDelegate.swift */; };
 		849746F12A9E828100A2AB92 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849746F02A9E828100A2AB92 /* ViewController.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		847842BA2A9E88F8005A26AE /* Benchmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Benchmark.swift; sourceTree = "<group>"; };
+		847842BC2A9E8922005A26AE /* DataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataGenerator.swift; sourceTree = "<group>"; };
 		849746E92A9E828100A2AB92 /* PerformanceExperiments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PerformanceExperiments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		849746EC2A9E828100A2AB92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		849746EE2A9E828100A2AB92 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				847842BA2A9E88F8005A26AE /* Benchmark.swift */,
+				847842BC2A9E8922005A26AE /* DataGenerator.swift */,
 			);
 			path = Experiments;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				847842BB2A9E88F8005A26AE /* Benchmark.swift in Sources */,
 				849746ED2A9E828100A2AB92 /* AppDelegate.swift in Sources */,
 				849746EF2A9E828100A2AB92 /* SceneDelegate.swift in Sources */,
+				847842BD2A9E8922005A26AE /* DataGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
