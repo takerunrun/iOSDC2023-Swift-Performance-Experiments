@@ -9,7 +9,7 @@ import Foundation
 
 enum Experiments {
     
-    static func run<T>(
+    private static func run<T>(
         dataGenerator: (_ length: Int) -> T,
         badCaseBlock: (T) -> (),
         goodCaseBlock: (T) -> ()
