@@ -139,7 +139,7 @@ enum Experiments {
         // Good
         static func measureWithContains(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
-                _ = emojis.contains("🍎")
+                _ = emojis.contains(where: { $0 == "🍎" })
                 return
             })
         }
