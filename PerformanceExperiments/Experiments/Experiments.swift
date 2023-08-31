@@ -366,17 +366,25 @@ extension Experiments {
         badCaseBlock: (T) -> Double,
         goodCaseBlock: (T) -> Double
     ) {
+        runOnlyOnce(dataGenerator: dataGenerator, badCaseBlock: badCaseBlock, goodCaseBlock: goodCaseBlock)
+    }
+    
+    private static func runOnlyOnce<T>(
+        dataGenerator: (_ length: Int) -> T,
+        badCaseBlock: (T) -> Double,
+        goodCaseBlock: (T) -> Double
+    ) {
         print("---- Bad ----")
         for i in (0 ..< 8) {
             let length: Int = Int(pow(Double(10), Double(i)))
             let array = dataGenerator(length)
-            badCaseBlock(array)
+            _ = badCaseBlock(array)
         }
         print("---- Good ----")
         for i in (0 ..< 8) {
             let length: Int = Int(pow(Double(10), Double(i)))
             let array = dataGenerator(length)
-            goodCaseBlock(array)
+            _ = goodCaseBlock(array)
         }
         print("\n")
     }
