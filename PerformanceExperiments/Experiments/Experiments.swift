@@ -405,7 +405,12 @@ extension Experiments {
         badCaseBlock: (T) -> Double,
         goodCaseBlock: (T) -> Double
     ) {
-        runOnlyOnce(dataGenerator: dataGenerator, badCaseBlock: badCaseBlock, goodCaseBlock: goodCaseBlock)
+        switch type {
+        case .onlyOnce:
+            runOnlyOnce(dataGenerator: dataGenerator, badCaseBlock: badCaseBlock, goodCaseBlock: goodCaseBlock)
+        case .multipleTimes:
+            runMultipleTimes(dataGenerator: dataGenerator, badCaseBlock: badCaseBlock, goodCaseBlock: goodCaseBlock)
+        }
     }
     
     private static func runOnlyOnce<T>(
