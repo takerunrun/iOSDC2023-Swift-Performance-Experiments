@@ -31,7 +31,7 @@ enum Experiments {
                 //===----------------------------------------------------------------------===//
                 
                 ====
-                // 状況：先頭のりんごがほしい
+                // 状況：先頭のリンゴがほしい
                 let emojis = ["🍋", "🍋", "🍎", "🍎"]
                 
                 // Bad
@@ -44,7 +44,7 @@ enum Experiments {
                 """
             )
             
-            print("コレクションの要素が全部りんごの場合：[🍎, 🍎, 🍎, 🍎]")
+            print("コレクションの要素が全部リンゴの場合：[🍎, 🍎, 🍎, 🍎]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeAllAppleEmojis(length: $0) },
                 badCaseBlock: { measureWithFilterFirst(emojis: $0) },
@@ -58,7 +58,7 @@ enum Experiments {
                 goodCaseBlock: { measureWithFirstWhere(emojis: $0) }
             )
             
-            print("コレクションの要素が前半レモン、後半りんごの場合：[🍋, 🍋, 🍎, 🍎]")
+            print("コレクションの要素が前半レモン、後半リンゴの場合：[🍋, 🍋, 🍎, 🍎]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeLemonAndAppleEmojis(length: $0) },
                 badCaseBlock: { measureWithFilterFirst(emojis: $0) },
@@ -93,7 +93,7 @@ enum Experiments {
                 //===----------------------------------------------------------------------===//
                 
                 ====
-                // 状況：りんごが含まれるかどうか、知りたい
+                // 状況：リンゴが含まれるかどうか、知りたい
                 let emojis = ["🍋", "🍋", "🍎", "🍎"]
                 
                 //Bad
@@ -106,7 +106,7 @@ enum Experiments {
                 """
             )
             
-            print("コレクションの要素が全部りんごの場合：[🍎, 🍎, 🍎, 🍎]")
+            print("コレクションの要素が全部リンゴの場合：[🍎, 🍎, 🍎, 🍎]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeAllAppleEmojis(length: $0) },
                 badCaseBlock: { measureWithFilterIsEmpty(emojis: $0) },
@@ -120,7 +120,7 @@ enum Experiments {
                 goodCaseBlock: { measureWithContains(emojis: $0) }
             )
             
-            print("コレクションの要素が前半レモン、後半りんごの場合：[🍋, 🍋, 🍎, 🍎]")
+            print("コレクションの要素が前半レモン、後半リンゴの場合：[🍋, 🍋, 🍎, 🍎]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeLemonAndAppleEmojis(length: $0) },
                 badCaseBlock: { measureWithFilterIsEmpty(emojis: $0) },
@@ -155,7 +155,7 @@ enum Experiments {
                 //===----------------------------------------------------------------------===//
                 
                 ====
-                // 状況：全部りんごかどうか知りたい
+                // 状況：全部リンゴかどうか知りたい
                 let emojis = ["🍎", "🍎", "🍎"]
                 
                 //Bad
@@ -168,7 +168,7 @@ enum Experiments {
                 """
             )
             
-            print("コレクションの要素が全部りんごの場合：[🍎, 🍎, 🍎, 🍎]")
+            print("コレクションの要素が全部リンゴの場合：[🍎, 🍎, 🍎, 🍎]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeAllAppleEmojis(length: $0) },
                 badCaseBlock: { measureWithFilterIsEmpty(emojis: $0) },
@@ -182,7 +182,7 @@ enum Experiments {
                 goodCaseBlock: { measureWithAllSatisfy(emojis: $0) }
             )
             
-            print("コレクションの要素が前半りんご、後半レモンの場合：[🍎, 🍎, 🍋, 🍋]")
+            print("コレクションの要素が前半リンゴ、後半レモンの場合：[🍎, 🍎, 🍋, 🍋]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeAppleAndLemonEmojis(length: $0) },
                 badCaseBlock: { measureWithFilterIsEmpty(emojis: $0) },
@@ -278,7 +278,7 @@ enum Experiments {
                 """
             )
             
-            print("コレクションの要素が全部りんごの場合：[🍎, 🍎, 🍎, 🍎]")
+            print("コレクションの要素が全部リンゴの場合：[🍎, 🍎, 🍎, 🍎]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeAllAppleEmojis(length: $0) },
                 badCaseBlock: { measureWithCount(emojis: $0) },
