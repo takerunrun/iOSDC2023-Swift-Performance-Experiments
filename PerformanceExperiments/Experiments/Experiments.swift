@@ -361,6 +361,45 @@ extension Experiments {
         case multipleTimes
     }
     
+    struct PerformanceResult {
+        var bad: [Int: [Double]] = [:]
+        var good: [Int: [Double]] = [:]
+        
+        private func averaged(_ results: [Int: [Double]]) -> [Int: Double] {
+            var averagedResult: [Int: Double] = [:]
+            for result in results {
+                let average = result.value.reduce(Double(0), +) / Double(result.value.count)
+                averagedResult[result.key] = average
+            }
+            return averagedResult
+        }
+        
+        func standardOutput() {
+            let text = """
+                計測結果の平均をまとめた表
+                
+                   Size   |  Averaged Bad  | Averaged Good  |
+                --------------------------------------------
+                """
+            
+            print(text)
+            
+            let averagedBad = averaged(bad)
+            let averagedGood = averaged(good)
+            for key in averagedBad.keys.sorted() {
+                guard let badElapsed = averagedBad[key], let goodElapsed = averagedGood[key] else {
+                    assertionFailure("ピンチはチャンス...!!")
+                    return
+                }
+                let formatedSize = String(format: "% 9d", key)
+                let badFormatedElapsed = String(format: "%.12f", badElapsed)
+                let goodFormatedElapsed = String(format: "%.12f", goodElapsed)
+                print("\(formatedSize) | \(badFormatedElapsed) | \(goodFormatedElapsed) |")
+            }
+            print("\n")
+        }
+    }
+    
     private static func run<T>(
         dataGenerator: (_ length: Int) -> T,
         badCaseBlock: (T) -> Double,
