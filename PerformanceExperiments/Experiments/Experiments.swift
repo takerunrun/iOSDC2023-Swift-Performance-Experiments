@@ -8,6 +8,9 @@
 import Foundation
 
 enum Experiments {
+    /// .onlyOnce の場合は、各計測に関して、1回だけ行う
+    /// .multipleTimesの場合は、各計測に関して、複数回実行し平均を求める
+    static var type: ExperimentType = .onlyOnce
     
     static func runAll() {
         Experiments.case1.run()
