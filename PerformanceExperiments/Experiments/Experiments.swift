@@ -427,4 +427,34 @@ extension Experiments {
         }
         print("\n")
     }
+    
+    static func runMultipleTimes<T>(
+        dataGenerator: (_ length: Int) -> T,
+        badCaseBlock: (T) -> Double,
+        goodCaseBlock: (T) -> Double
+    ) {
+        var result = PerformanceResult()
+        print("---- Bad ----")
+        for i in (0 ..< 8) {
+            let length: Int = Int(pow(Double(10), Double(i)))
+            let array = dataGenerator(length)
+            result.bad[length] = []
+            for _ in (0 ..< 10) {
+                let elapsed = badCaseBlock(array)
+                result.bad[length]?.append(elapsed)
+            }
+        }
+        print("---- Good ----")
+        for i in (0 ..< 8) {
+            let length: Int = Int(pow(Double(10), Double(i)))
+            let array = dataGenerator(length)
+            result.good[length] = []
+            for _ in (0 ..< 10) {
+                let elapsed = goodCaseBlock(array)
+                result.good[length]?.append(elapsed)
+            }
+        }
+        print("\n")
+        result.standardOutput()
+    }
 }
