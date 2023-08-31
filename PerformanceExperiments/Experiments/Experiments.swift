@@ -350,6 +350,14 @@ enum Experiments {
 }
 
 extension Experiments {
+    enum ExperimentType {
+        // 各計測に関して、1回だけ行う
+        case onlyOnce
+        
+        // 各計測に関して、10回行い、平均を取る
+        case multipleTimes
+    }
+    
     private static func run<T>(
         dataGenerator: (_ length: Int) -> T,
         badCaseBlock: (T) -> Double,
