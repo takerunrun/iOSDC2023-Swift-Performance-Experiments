@@ -64,7 +64,7 @@ enum Experiments {
         }
         
         // Bad
-        static func measureWithFilterFirst(emojis: [String]) {
+        static func measureWithFilterFirst(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.filter { $0 == "🍎" }.first
                 return
@@ -72,7 +72,7 @@ enum Experiments {
         }
         
         // Good
-        static func measureWithFirstWhere(emojis: [String]) {
+        static func measureWithFirstWhere(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.first(where: { $0 == "🍎" })
                 return
@@ -126,7 +126,7 @@ enum Experiments {
         }
         
         // Bad
-        static func measureWithFilterIsEmpty(emojis: [String]) {
+        static func measureWithFilterIsEmpty(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = !emojis.filter { $0 == "🍎" }.isEmpty
                 return
@@ -134,7 +134,7 @@ enum Experiments {
         }
         
         // Good
-        static func measureWithContains(emojis: [String]) {
+        static func measureWithContains(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.contains("🍎")
                 return
@@ -188,7 +188,7 @@ enum Experiments {
         }
         
         // Bad
-        static func measureWithFilterIsEmpty(emojis: [String]) {
+        static func measureWithFilterIsEmpty(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.filter { $0 != "🍎" }.isEmpty
                 return
@@ -196,7 +196,7 @@ enum Experiments {
         }
         
         // Good
-        static func measureWithAllSatisfy(emojis: [String]) {
+        static func measureWithAllSatisfy(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.allSatisfy { $0 == "🍎" }
                 return
@@ -236,7 +236,7 @@ enum Experiments {
         }
         
         // Bad
-        static func measureWithSortedFirst(numbers: [Int]) {
+        static func measureWithSortedFirst(numbers: [Int]) -> Double {
             Benchmark.measure(size: numbers.count, block: {
                 _ = numbers.sorted().first
                 return
@@ -244,7 +244,7 @@ enum Experiments {
         }
         
         // Good
-        static func measureWithMin(numbers: [Int]) {
+        static func measureWithMin(numbers: [Int]) -> Double {
             Benchmark.measure(size: numbers.count, block: {
                 _ = numbers.min()
                 return
@@ -284,7 +284,7 @@ enum Experiments {
         }
         
         // Bad
-        static func measureWithCount(emojis: [String]) {
+        static func measureWithCount(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.count == 0
                 return
@@ -292,7 +292,7 @@ enum Experiments {
         }
         
         // Good
-        static func measureWithIsEmpty(emojis: [String]) {
+        static func measureWithIsEmpty(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.isEmpty
                 return
@@ -332,7 +332,7 @@ enum Experiments {
         }
         
         // Bad
-        static func measureWithCount(string: String) {
+        static func measureWithCount(string: String) -> Double {
             Benchmark.measure(size: string.count, block: {
                 _ = string.count == 0
                 return
@@ -340,7 +340,7 @@ enum Experiments {
         }
         
         // Good
-        static func measureWithIsEmpty(string: String) {
+        static func measureWithIsEmpty(string: String) -> Double {
             Benchmark.measure(size: string.count, block: {
                 _ = string.isEmpty
                 return
@@ -352,8 +352,8 @@ enum Experiments {
 extension Experiments {
     private static func run<T>(
         dataGenerator: (_ length: Int) -> T,
-        badCaseBlock: (T) -> (),
-        goodCaseBlock: (T) -> ()
+        badCaseBlock: (T) -> Double,
+        goodCaseBlock: (T) -> Double
     ) {
         print("---- Bad ----")
         for i in (0 ..< 8) {
