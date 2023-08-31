@@ -407,9 +407,17 @@ extension Experiments {
     ) {
         switch type {
         case .onlyOnce:
-            runOnlyOnce(dataGenerator: dataGenerator, badCaseBlock: badCaseBlock, goodCaseBlock: goodCaseBlock)
+            runOnlyOnce(
+                dataGenerator: dataGenerator,
+                badCaseBlock: badCaseBlock,
+                goodCaseBlock: goodCaseBlock
+            )
         case .multipleTimes:
-            runMultipleTimes(dataGenerator: dataGenerator, badCaseBlock: badCaseBlock, goodCaseBlock: goodCaseBlock)
+            runMultipleTimes(
+                dataGenerator: dataGenerator,
+                badCaseBlock: badCaseBlock,
+                goodCaseBlock: goodCaseBlock
+            )
         }
     }
     
