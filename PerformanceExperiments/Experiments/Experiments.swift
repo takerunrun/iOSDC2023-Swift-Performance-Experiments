@@ -18,26 +18,6 @@ enum Experiments {
         Experiments.case6.run()
     }
     
-    private static func run<T>(
-        dataGenerator: (_ length: Int) -> T,
-        badCaseBlock: (T) -> (),
-        goodCaseBlock: (T) -> ()
-    ) {
-        print("---- Bad ----")
-        for i in (0 ..< 8) {
-            let length: Int = Int(pow(Double(10), Double(i)))
-            let array = dataGenerator(length)
-            badCaseBlock(array)
-        }
-        print("---- Good ----")
-        for i in (0 ..< 8) {
-            let length: Int = Int(pow(Double(10), Double(i)))
-            let array = dataGenerator(length)
-            goodCaseBlock(array)
-        }
-        print("\n")
-    }
-    
     // MARK: ケース1 - コレクション内の条件に合う最初のオブジェクトの取得
     enum case1 {
         static func run() {
@@ -366,5 +346,27 @@ enum Experiments {
                 return
             })
         }
+    }
+}
+
+extension Experiments {
+    private static func run<T>(
+        dataGenerator: (_ length: Int) -> T,
+        badCaseBlock: (T) -> (),
+        goodCaseBlock: (T) -> ()
+    ) {
+        print("---- Bad ----")
+        for i in (0 ..< 8) {
+            let length: Int = Int(pow(Double(10), Double(i)))
+            let array = dataGenerator(length)
+            badCaseBlock(array)
+        }
+        print("---- Good ----")
+        for i in (0 ..< 8) {
+            let length: Int = Int(pow(Double(10), Double(i)))
+            let array = dataGenerator(length)
+            goodCaseBlock(array)
+        }
+        print("\n")
     }
 }
