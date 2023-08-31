@@ -375,14 +375,14 @@ extension Experiments {
         }
         
         func standardOutput() {
-            let text = """
-                計測結果の平均をまとめた表
+            let header = """
+                計測結果の表
                 
-                   Size   |  Averaged Bad  | Averaged Good  |
-                --------------------------------------------
+                   Size   |      Bad       |      Good      |  Bad / Good  |
+                -----------------------------------------------------------
                 """
             
-            print(text)
+            print(header)
             
             let averagedBad = averaged(bad)
             let averagedGood = averaged(good)
@@ -391,12 +391,23 @@ extension Experiments {
                     assertionFailure("ピンチはチャンス...!!")
                     return
                 }
+                let multiple = badElapsed / goodElapsed
+                
                 let formatedSize = String(format: "% 9d", key)
                 let badFormatedElapsed = String(format: "%.12f", badElapsed)
                 let goodFormatedElapsed = String(format: "%.12f", goodElapsed)
-                print("\(formatedSize) | \(badFormatedElapsed) | \(goodFormatedElapsed) |")
+                let formatedMultiple = String(format: "% 12.2f", multiple)
+                print("\(formatedSize) | \(badFormatedElapsed) | \(goodFormatedElapsed) | \(formatedMultiple) |")
             }
-            print("\n")
+            let footnote = """
+                
+                Size      : データのサイズ
+                Bad       : Badケースの平均
+                Good      : Goodケースの平均
+                Bad / Good: Badケースの平均 / Goodケースの平均
+                
+                """
+            print(footnote)
         }
     }
     
@@ -469,5 +480,6 @@ extension Experiments {
         }
         print("\n")
         result.standardOutput()
+        print("\n")
     }
 }
