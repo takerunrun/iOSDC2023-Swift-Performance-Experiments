@@ -236,6 +236,20 @@ enum Experiments {
                 badCaseBlock: { measureWithSortedFirst(numbers: $0) },
                 goodCaseBlock: { measureWithMin(numbers: $0) }
             )
+            
+            print("コレクションの要素が0から降順の場合：[3, 2, 1, 0]")
+            Experiments.run(
+                dataGenerator: { DataGenerator.makeNumbersInDescendingOrder(length: $0) },
+                badCaseBlock: { measureWithSortedFirst(numbers: $0) },
+                goodCaseBlock: { measureWithMin(numbers: $0) }
+            )
+            
+            print("コレクションの要素がランダムの場合：[1, 3, 0, 2]")
+            Experiments.run(
+                dataGenerator: { DataGenerator.makeNumbersAtRandom(length: $0) },
+                badCaseBlock: { measureWithSortedFirst(numbers: $0) },
+                goodCaseBlock: { measureWithMin(numbers: $0) }
+            )
         }
         
         // Bad
