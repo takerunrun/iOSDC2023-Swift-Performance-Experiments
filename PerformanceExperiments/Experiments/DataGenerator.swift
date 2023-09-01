@@ -39,4 +39,9 @@ struct DataGenerator {
         let numbers = Array(0 ..< length)
         return numbers
     }
+    
+    static func makeNumbersInDescendingOrder(length: Int) -> [Int] {
+        let numbers = Array(0 ..< length).sorted { $0 > $1 }
+        return numbers
+    }
 }
