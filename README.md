@@ -121,6 +121,8 @@ let firstApple = emojis.first(where: { $0 == "🍎" })
 
 ### ケース2 - コレクション内のオブジェクトの存在確認
 
+[ケース2の実験結果を全部見る](https://github.com/takerunrun/iOSDC2023-Swift-Performance-Experiments/blob/main/Results/results_case2_multiple_times.md)
+
 ```
 //===----------------------------------------------------------------------===//
 // ケース2 - コレクション内のオブジェクトの存在確認
@@ -180,6 +182,8 @@ let containsApple = emojis.contains("🍎")
 ```
 
 ### ケース3 - コレクション内の全てのオブジェクトが条件を満たすことの確認
+
+[ケース3の実験結果を全部見る](https://github.com/takerunrun/iOSDC2023-Swift-Performance-Experiments/blob/main/Results/results_case3_multiple_times.md)
 
 ```
 //===----------------------------------------------------------------------===//
@@ -241,6 +245,8 @@ let isAllApple = emojis.allSatisfy { $0 == "🍎" }
 
 ### ケース4 - コレクション内の最小のオブジェクトの取得
 
+[ケース4の実験結果を全部見る](https://github.com/takerunrun/iOSDC2023-Swift-Performance-Experiments/blob/main/Results/results_case4_multiple_times.md)
+
 ```
 //===----------------------------------------------------------------------===//
 // ケース4 - コレクション内の最小のオブジェクトの取得
@@ -273,6 +279,8 @@ let minNumber = numbers.min()
 
 ### ケース5 - コレクションが空かどうかの確認
 
+[ケース5の実験結果を全部見る](https://github.com/takerunrun/iOSDC2023-Swift-Performance-Experiments/blob/main/Results/results_case5_multiple_times.md)
+
 ```
 //===----------------------------------------------------------------------===//
 // ケース5 - コレクションが空かどうかの確認
@@ -304,6 +312,8 @@ let isEmpty = emojis.isEmpty
 ```
 
 ### ケース6 - 文字列が空文字かどうかの確認
+
+[ケース6の実験結果を全部見る](https://github.com/takerunrun/iOSDC2023-Swift-Performance-Experiments/blob/main/Results/results_case6_multiple_times.md)
 
 ```
 //===----------------------------------------------------------------------===//
