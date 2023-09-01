@@ -44,4 +44,9 @@ struct DataGenerator {
         let numbers = Array(0 ..< length).sorted { $0 > $1 }
         return numbers
     }
+    
+    static func makeNumbersAtRandom(length: Int) -> [Int] {
+        let numbers = Array(0 ..< length).shuffled()
+        return numbers
+    }
 }
