@@ -230,21 +230,21 @@ enum Experiments {
                 """
             )
             
-            print("コレクションの要素が0から昇順の場合：[0, 1, 2, 3]")
+            print("コレクションの要素が昇順の場合：[0, 1, 2, 3]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeNumbersInAscendingOrder(length: $0) },
                 badCaseBlock: { measureWithSortedFirst(numbers: $0) },
                 goodCaseBlock: { measureWithMin(numbers: $0) }
             )
             
-            print("コレクションの要素が0から降順の場合：[3, 2, 1, 0]")
+            print("コレクションの要素が降順の場合：[3, 2, 1, 0]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeNumbersInDescendingOrder(length: $0) },
                 badCaseBlock: { measureWithSortedFirst(numbers: $0) },
                 goodCaseBlock: { measureWithMin(numbers: $0) }
             )
             
-            print("コレクションの要素がランダムの場合：[1, 3, 0, 2]")
+            print("コレクションの要素がランダム順の場合：[1, 3, 0, 2]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeNumbersAtRandom(length: $0) },
                 badCaseBlock: { measureWithSortedFirst(numbers: $0) },
