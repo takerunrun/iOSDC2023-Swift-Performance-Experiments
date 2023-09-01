@@ -35,7 +35,7 @@ struct DataGenerator {
         return String((0 ..< length).map { _ in letters.randomElement() ?? "a" })
     }
     
-    static func makeNumbers(length: Int) -> [Int] {
+    static func makeNumbersInAscendingOrder(length: Int) -> [Int] {
         let numbers = Array(0 ..< length)
         return numbers
     }

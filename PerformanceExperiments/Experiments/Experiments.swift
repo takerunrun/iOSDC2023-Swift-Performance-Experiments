@@ -232,7 +232,7 @@ enum Experiments {
             
             print("コレクションの要素が0から昇順の場合：[0, 1, 2, 3]")
             Experiments.run(
-                dataGenerator: { DataGenerator.makeNumbers(length: $0) },
+                dataGenerator: { DataGenerator.makeNumbersInAscendingOrder(length: $0) },
                 badCaseBlock: { measureWithSortedFirst(numbers: $0) },
                 goodCaseBlock: { measureWithMin(numbers: $0) }
             )
