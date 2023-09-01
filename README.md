@@ -59,6 +59,8 @@ extension Experiments {
 
 ### ケース1 - コレクション内の条件に合う最初のオブジェクトの取得
 
+[ケース1の実験結果を全部見る](https://github.com/takerunrun/iOSDC2023-Swift-Performance-Experiments/blob/main/Results/results_case1_multiple_times.md)
+
 ```
 //===----------------------------------------------------------------------===//
 // ケース1 - コレクション内の条件に合う最初のオブジェクトの取得
