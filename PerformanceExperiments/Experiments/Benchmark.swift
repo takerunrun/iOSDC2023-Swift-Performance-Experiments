@@ -16,16 +16,20 @@ class Benchmark {
         self.size = size
     }
     
-    private func finish() {
-        let elapsed = Date().timeIntervalSince(self.startTime) as Double
-        let formatedElapsed = String(format: "%.12f", elapsed)
+    private func finish() -> Double {
+        let elapsedTime = Date().timeIntervalSince(self.startTime) as Double
+        let formatedElapsedTime = String(format: "%.12f", elapsedTime)
         let formatedSize = String(format: "% 9d", size)
-        print("Size: \(formatedSize), Elasped time: \(formatedElapsed)(s)")
+        print("Size: \(formatedSize), Elasped time: \(formatedElapsedTime)(s)")
+        
+        return elapsedTime
     }
     
-    static func measure(size: Int, block: () -> ()) {
+    static func measure(size: Int, block: () -> ()) -> Double {
         let benchmark = Benchmark(size: size)
         block()
-        benchmark.finish()
+        let elapsedTime = benchmark.finish()
+        
+        return elapsedTime
     }
 }

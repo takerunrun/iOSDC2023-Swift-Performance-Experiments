@@ -8,6 +8,9 @@
 import Foundation
 
 enum Experiments {
+    /// .onlyOnce の場合は、各計測に関して、1回だけ行う
+    /// .multipleTimesの場合は、各計測に関して、複数回実行し平均を求める
+    static var type: ExperimentType = .onlyOnce
     
     static func runAll() {
         Experiments.case1.run()
@@ -16,26 +19,6 @@ enum Experiments {
         Experiments.case4.run()
         Experiments.case5.run()
         Experiments.case6.run()
-    }
-    
-    private static func run<T>(
-        dataGenerator: (_ length: Int) -> T,
-        badCaseBlock: (T) -> (),
-        goodCaseBlock: (T) -> ()
-    ) {
-        print("---- Bad ----")
-        for i in (0 ..< 8) {
-            let length: Int = Int(pow(Double(10), Double(i)))
-            let array = dataGenerator(length)
-            badCaseBlock(array)
-        }
-        print("---- Good ----")
-        for i in (0 ..< 8) {
-            let length: Int = Int(pow(Double(10), Double(i)))
-            let array = dataGenerator(length)
-            goodCaseBlock(array)
-        }
-        print("\n")
     }
     
     // MARK: ケース1 - コレクション内の条件に合う最初のオブジェクトの取得
@@ -48,7 +31,7 @@ enum Experiments {
                 //===----------------------------------------------------------------------===//
                 
                 ====
-                // 状況：先頭のりんごがほしい
+                // 状況：先頭のリンゴがほしい
                 let emojis = ["🍋", "🍋", "🍎", "🍎"]
                 
                 // Bad
@@ -61,7 +44,7 @@ enum Experiments {
                 """
             )
             
-            print("コレクションの要素が全部りんごの場合：[🍎, 🍎, 🍎, 🍎]")
+            print("コレクションの要素が全部リンゴの場合：[🍎, 🍎, 🍎, 🍎]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeAllAppleEmojis(length: $0) },
                 badCaseBlock: { measureWithFilterFirst(emojis: $0) },
@@ -75,7 +58,7 @@ enum Experiments {
                 goodCaseBlock: { measureWithFirstWhere(emojis: $0) }
             )
             
-            print("コレクションの要素が前半レモン、後半りんごの場合：[🍋, 🍋, 🍎, 🍎]")
+            print("コレクションの要素が前半レモン、後半リンゴの場合：[🍋, 🍋, 🍎, 🍎]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeLemonAndAppleEmojis(length: $0) },
                 badCaseBlock: { measureWithFilterFirst(emojis: $0) },
@@ -84,7 +67,7 @@ enum Experiments {
         }
         
         // Bad
-        static func measureWithFilterFirst(emojis: [String]) {
+        static func measureWithFilterFirst(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.filter { $0 == "🍎" }.first
                 return
@@ -92,7 +75,7 @@ enum Experiments {
         }
         
         // Good
-        static func measureWithFirstWhere(emojis: [String]) {
+        static func measureWithFirstWhere(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.first(where: { $0 == "🍎" })
                 return
@@ -110,7 +93,7 @@ enum Experiments {
                 //===----------------------------------------------------------------------===//
                 
                 ====
-                // 状況：りんごが含まれるかどうか、知りたい
+                // 状況：リンゴが含まれるかどうか、知りたい
                 let emojis = ["🍋", "🍋", "🍎", "🍎"]
                 
                 //Bad
@@ -123,7 +106,7 @@ enum Experiments {
                 """
             )
             
-            print("コレクションの要素が全部りんごの場合：[🍎, 🍎, 🍎, 🍎]")
+            print("コレクションの要素が全部リンゴの場合：[🍎, 🍎, 🍎, 🍎]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeAllAppleEmojis(length: $0) },
                 badCaseBlock: { measureWithFilterIsEmpty(emojis: $0) },
@@ -137,7 +120,7 @@ enum Experiments {
                 goodCaseBlock: { measureWithContains(emojis: $0) }
             )
             
-            print("コレクションの要素が前半レモン、後半りんごの場合：[🍋, 🍋, 🍎, 🍎]")
+            print("コレクションの要素が前半レモン、後半リンゴの場合：[🍋, 🍋, 🍎, 🍎]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeLemonAndAppleEmojis(length: $0) },
                 badCaseBlock: { measureWithFilterIsEmpty(emojis: $0) },
@@ -146,7 +129,7 @@ enum Experiments {
         }
         
         // Bad
-        static func measureWithFilterIsEmpty(emojis: [String]) {
+        static func measureWithFilterIsEmpty(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = !emojis.filter { $0 == "🍎" }.isEmpty
                 return
@@ -154,9 +137,9 @@ enum Experiments {
         }
         
         // Good
-        static func measureWithContains(emojis: [String]) {
+        static func measureWithContains(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
-                _ = emojis.contains("🍎")
+                _ = emojis.contains(where: { $0 == "🍎" })
                 return
             })
         }
@@ -172,7 +155,7 @@ enum Experiments {
                 //===----------------------------------------------------------------------===//
                 
                 ====
-                // 状況：全部りんごかどうか知りたい
+                // 状況：全部リンゴかどうか知りたい
                 let emojis = ["🍎", "🍎", "🍎"]
                 
                 //Bad
@@ -185,7 +168,7 @@ enum Experiments {
                 """
             )
             
-            print("コレクションの要素が全部りんごの場合：[🍎, 🍎, 🍎, 🍎]")
+            print("コレクションの要素が全部リンゴの場合：[🍎, 🍎, 🍎, 🍎]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeAllAppleEmojis(length: $0) },
                 badCaseBlock: { measureWithFilterIsEmpty(emojis: $0) },
@@ -199,7 +182,7 @@ enum Experiments {
                 goodCaseBlock: { measureWithAllSatisfy(emojis: $0) }
             )
             
-            print("コレクションの要素が前半りんご、後半レモンの場合：[🍎, 🍎, 🍋, 🍋]")
+            print("コレクションの要素が前半リンゴ、後半レモンの場合：[🍎, 🍎, 🍋, 🍋]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeAppleAndLemonEmojis(length: $0) },
                 badCaseBlock: { measureWithFilterIsEmpty(emojis: $0) },
@@ -208,7 +191,7 @@ enum Experiments {
         }
         
         // Bad
-        static func measureWithFilterIsEmpty(emojis: [String]) {
+        static func measureWithFilterIsEmpty(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.filter { $0 != "🍎" }.isEmpty
                 return
@@ -216,7 +199,7 @@ enum Experiments {
         }
         
         // Good
-        static func measureWithAllSatisfy(emojis: [String]) {
+        static func measureWithAllSatisfy(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.allSatisfy { $0 == "🍎" }
                 return
@@ -256,7 +239,7 @@ enum Experiments {
         }
         
         // Bad
-        static func measureWithSortedFirst(numbers: [Int]) {
+        static func measureWithSortedFirst(numbers: [Int]) -> Double {
             Benchmark.measure(size: numbers.count, block: {
                 _ = numbers.sorted().first
                 return
@@ -264,7 +247,7 @@ enum Experiments {
         }
         
         // Good
-        static func measureWithMin(numbers: [Int]) {
+        static func measureWithMin(numbers: [Int]) -> Double {
             Benchmark.measure(size: numbers.count, block: {
                 _ = numbers.min()
                 return
@@ -295,7 +278,7 @@ enum Experiments {
                 """
             )
             
-            print("コレクションの要素が全部りんごの場合：[🍎, 🍎, 🍎, 🍎]")
+            print("コレクションの要素が全部リンゴの場合：[🍎, 🍎, 🍎, 🍎]")
             Experiments.run(
                 dataGenerator: { DataGenerator.makeAllAppleEmojis(length: $0) },
                 badCaseBlock: { measureWithCount(emojis: $0) },
@@ -304,7 +287,7 @@ enum Experiments {
         }
         
         // Bad
-        static func measureWithCount(emojis: [String]) {
+        static func measureWithCount(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.count == 0
                 return
@@ -312,7 +295,7 @@ enum Experiments {
         }
         
         // Good
-        static func measureWithIsEmpty(emojis: [String]) {
+        static func measureWithIsEmpty(emojis: [String]) -> Double {
             Benchmark.measure(size: emojis.count, block: {
                 _ = emojis.isEmpty
                 return
@@ -352,7 +335,7 @@ enum Experiments {
         }
         
         // Bad
-        static func measureWithCount(string: String) {
+        static func measureWithCount(string: String) -> Double {
             Benchmark.measure(size: string.count, block: {
                 _ = string.count == 0
                 return
@@ -360,11 +343,143 @@ enum Experiments {
         }
         
         // Good
-        static func measureWithIsEmpty(string: String) {
+        static func measureWithIsEmpty(string: String) -> Double {
             Benchmark.measure(size: string.count, block: {
                 _ = string.isEmpty
                 return
             })
         }
+    }
+}
+
+extension Experiments {
+    enum ExperimentType {
+        // 各計測に関して、1回だけ行う
+        case onlyOnce
+        
+        // 各計測に関して、10回行い、平均を取る
+        case multipleTimes
+    }
+    
+    struct PerformanceResult {
+        var bad: [Int: [Double]] = [:]
+        var good: [Int: [Double]] = [:]
+        
+        private func averaged(_ results: [Int: [Double]]) -> [Int: Double] {
+            var averagedResult: [Int: Double] = [:]
+            for result in results {
+                let average = result.value.reduce(Double(0), +) / Double(result.value.count)
+                averagedResult[result.key] = average
+            }
+            return averagedResult
+        }
+        
+        func standardOutput() {
+            let header = """
+                計測結果の表
+                
+                   Size   |      Bad       |      Good      |  Bad / Good  |
+                -----------------------------------------------------------
+                """
+            
+            print(header)
+            
+            let averagedBad = averaged(bad)
+            let averagedGood = averaged(good)
+            for key in averagedBad.keys.sorted() {
+                guard let badElapsed = averagedBad[key], let goodElapsed = averagedGood[key] else {
+                    assertionFailure("ピンチはチャンス...!!")
+                    return
+                }
+                let multiple = badElapsed / goodElapsed
+                
+                let formatedSize = String(format: "% 9d", key)
+                let badFormatedElapsed = String(format: "%.12f", badElapsed)
+                let goodFormatedElapsed = String(format: "%.12f", goodElapsed)
+                let formatedMultiple = String(format: "% 12.2f", multiple)
+                print("\(formatedSize) | \(badFormatedElapsed) | \(goodFormatedElapsed) | \(formatedMultiple) |")
+            }
+            let footnote = """
+                
+                Size      : データのサイズ
+                Bad       : Badケースの平均
+                Good      : Goodケースの平均
+                Bad / Good: Badケースの平均 / Goodケースの平均
+                
+                """
+            print(footnote)
+        }
+    }
+    
+    private static func run<T>(
+        dataGenerator: (_ length: Int) -> T,
+        badCaseBlock: (T) -> Double,
+        goodCaseBlock: (T) -> Double
+    ) {
+        switch type {
+        case .onlyOnce:
+            runOnlyOnce(
+                dataGenerator: dataGenerator,
+                badCaseBlock: badCaseBlock,
+                goodCaseBlock: goodCaseBlock
+            )
+        case .multipleTimes:
+            runMultipleTimes(
+                dataGenerator: dataGenerator,
+                badCaseBlock: badCaseBlock,
+                goodCaseBlock: goodCaseBlock
+            )
+        }
+    }
+    
+    private static func runOnlyOnce<T>(
+        dataGenerator: (_ length: Int) -> T,
+        badCaseBlock: (T) -> Double,
+        goodCaseBlock: (T) -> Double
+    ) {
+        print("---- Bad ----")
+        for i in (0 ..< 8) {
+            let length: Int = Int(pow(Double(10), Double(i)))
+            let array = dataGenerator(length)
+            _ = badCaseBlock(array)
+        }
+        print("---- Good ----")
+        for i in (0 ..< 8) {
+            let length: Int = Int(pow(Double(10), Double(i)))
+            let array = dataGenerator(length)
+            _ = goodCaseBlock(array)
+        }
+        print("\n")
+    }
+    
+    static func runMultipleTimes<T>(
+        dataGenerator: (_ length: Int) -> T,
+        badCaseBlock: (T) -> Double,
+        goodCaseBlock: (T) -> Double
+    ) {
+        var result = PerformanceResult()
+        print("---- Bad ----")
+        for i in (0 ..< 8) {
+            let length: Int = Int(pow(Double(10), Double(i)))
+            let array = dataGenerator(length)
+            result.bad[length] = []
+            for _ in (0 ..< 10) {
+                let elapsed = badCaseBlock(array)
+                result.bad[length]?.append(elapsed)
+            }
+        }
+        print("---- Good ----")
+        for i in (0 ..< 8) {
+            let length: Int = Int(pow(Double(10), Double(i)))
+            let array = dataGenerator(length)
+            result.good[length] = []
+            for _ in (0 ..< 10) {
+                let elapsed = goodCaseBlock(array)
+                result.good[length]?.append(elapsed)
+            }
+        }
+        print("\n")
+        result.standardOutput()
+        print("\n")
     }
 }

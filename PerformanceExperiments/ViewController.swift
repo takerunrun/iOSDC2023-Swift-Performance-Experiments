@@ -17,6 +17,9 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        /// 各計測に関して、複数回実行し平均を求める場合は、以下の行をコメントアウトする
+        /// Experiments.typeのデフォルト値は .onlyOnce（各計測に関して、1回だけ行う）
+        // Experiments.type = .multipleTimes
         Experiments.runAll()
     }
 }
