@@ -35,8 +35,18 @@ struct DataGenerator {
         return String((0 ..< length).map { _ in letters.randomElement() ?? "a" })
     }
     
-    static func makeNumbers(length: Int) -> [Int] {
+    static func makeNumbersInAscendingOrder(length: Int) -> [Int] {
         let numbers = Array(0 ..< length)
+        return numbers
+    }
+    
+    static func makeNumbersInDescendingOrder(length: Int) -> [Int] {
+        let numbers = Array(0 ..< length).sorted { $0 > $1 }
+        return numbers
+    }
+    
+    static func makeNumbersAtRandom(length: Int) -> [Int] {
+        let numbers = Array(0 ..< length).shuffled()
         return numbers
     }
 }
